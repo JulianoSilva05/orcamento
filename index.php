@@ -1,7 +1,7 @@
 <?php
-	include "conexao.inc";
+	include ("conexao.inc");
 ?>
-	<html>
+<html>
 	<head>
 		<meta charset="UTF-8"/> 
 		<title>Orçamento</title>
@@ -14,25 +14,20 @@
 		<div class="cabecalho">
 			<h3>Planilha de orçamento Midia indoor por licença</h3>
 		</div>
-		<div class="principal">
 			<form name="caduser" method="post" action="post.php">
 		<select name="produtos">
 			<option>Produto:</option>
 				<?php
 					$sql="SELECT * FROM produtos";
-					$rs=mysqli_query($conexao,$bd)or die("Não foi possivel localizar o Produto");
-					$linhas=mysqli_num_rows($rs);//vai ler todas as linhas da tabela
-					$dado=mysqli_fetch_array($rs);
-					if($linhas==0) {
-						echo "O usuario não foi encontrado!<br>";
-					}
-				else{
-					echo $produtos["produtos"]."<br>";
-					}
-				?>
+					$rs=mysqli_query($conexao,$sql);
+					while($produt = mysqli_fetch_assoc($rs)){ ?>
+                        <option value="<?php echo $produt['valor']; ?>"><?php echo $produt['produto']; ?>
+                    </option><?php
+                     }
+                    ?>
 		</select><br><br>
 			<label> Quantidade: </label><br>
-			<input type="int" name="quant"/><br>
+			<input type="int" name="quant"/><br><br>
                 <input type="submit" name="btcad" value="Orçamento"/><br>
 			</form>
 		</div>
